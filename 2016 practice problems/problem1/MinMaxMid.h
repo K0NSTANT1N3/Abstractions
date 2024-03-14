@@ -5,8 +5,10 @@
 #ifndef ABSTRACTIONS_MINMAXMID_H
 #define ABSTRACTIONS_MINMAXMID_H
 
+#include <iostream>
+using namespace std;
 
-class minMaxMid {
+class MinMaxMid {
 
 };
 
