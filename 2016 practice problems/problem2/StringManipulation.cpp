@@ -29,16 +29,15 @@ bool StringManipulation::isInteger(string s) {
 int StringManipulation::convertToInteger(string s) {
     if (s.size() == 0)return 0;
 
-    return (convertToInteger(
-            s.substr(0, s.size() - 1)) * 10
-            + (s[s.size() - 1] - '0'));
+    return (convertToInteger(s.substr(0, s.size() - 1))
+            * 10 + (s[s.size() - 1] - '0'));
 }
 
 int StringManipulation::remainderMod7(string s) {
-    if(s.size() == 1)return (s[0] - '0') % 7;
+    if (s.size() == 1)return (s[0] - '0') % 7;
 
-    return (remainderMod7(s.substr(0, s.size() - 1)) * 3
-        + (s[s.size() - 1]) - '0') % 7;
+    return (remainderMod7(s.substr(0, s.size() - 1))
+            * 3 + (s[s.size() - 1]) - '0') % 7;
 }
 
 

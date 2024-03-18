@@ -3,12 +3,11 @@
 //
 
 #include <iostream>
-#include "01/Recursion.h"
+#include "02/SelfReadingFile.h"
 
 using namespace std;
 
 int main() {
-    Recursion recursion;
-    cout << recursion.fibonacci(10) << endl;
-    cout << recursion.factorial(10) << endl;
+    SelfReadingFile selfReading;
+    selfReading.archiveMyHeader();
 }
