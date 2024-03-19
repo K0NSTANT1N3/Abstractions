@@ -39,5 +39,3 @@ int StringManipulation::remainderMod7(string s) {
     return (remainderMod7(s.substr(0, s.size() - 1))
             * 3 + (s[s.size() - 1]) - '0') % 7;
 }
-
-

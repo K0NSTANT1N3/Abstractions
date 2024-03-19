@@ -3,11 +3,12 @@
 //
 
 #include <iostream>
-#include "02/SelfReadingFile.h"
+#include "03/TheShuntingYardAlgorithm.h"
 
 using namespace std;
 
 int main() {
-    SelfReadingFile selfReading;
-    selfReading.archiveMyHeader();
+    TheShuntingYardAlgorithm shunt;
+    int a = shunt.shuntingYard("1+4*3^2-2");
+    cout << a;
 }

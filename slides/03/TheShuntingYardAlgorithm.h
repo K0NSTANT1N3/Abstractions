@@ -9,7 +9,8 @@
 #include <tokenscanner.h>
 #include<stack>
 #include <utility>
-#include "../../2016 practice problems/problem2/StringManipulation.h"
+#include "../../2016-practice-problems/02/StringManipulation.h"
+#include "../../additional/recursion/Arithmetics.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
     int shuntingYard(string expression);
 
 private:
-    string operands = "*/+-";
+    string operands = "*/+-^";
 
     struct tokenContainer {
         int index;
@@ -30,10 +31,12 @@ private:
     };
 
     string parseExpression(string expression);
-    bool isNumber(char c);
     tokenContainer tokenCutter(string expression, int curIndex);
-
-
+    void calculateRemaining(stack<int>& numbers, stack<char>& operations, char symbol);
+    int evaluateTwo(int num1, int num2, char symbol);
+    bool isDigit(char c);
+    int operationRank(char c);
+    bool hasGreaterRank(char a, char b);
 };
 
 #endif //ABSTRACTIONS_THESHUNTINGYARDALGORITHM_H

@@ -14,6 +14,10 @@ set(SOURCES
         slides/main.cpp
         slides/03/TheShuntingYardAlgorithm.cpp
         slides/03/TheShuntingYardAlgorithm.h
+        additional/recursion/Arithmetics.cpp
+        additional/recursion/Arithmetics.h
+        2016-practice-problems/02/StringManipulation.cpp
+        2016-practice-problems/02/StringManipulation.h
         )
 
 # Create the executable target with a valid name

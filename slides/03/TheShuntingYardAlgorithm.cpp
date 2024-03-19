@@ -10,6 +10,7 @@ int TheShuntingYardAlgorithm::shuntingYard(string expression) {
     stack<char> operations;
 
     string newExpr = parseExpression(std::move(expression));
+
     for (int i = 0; i < newExpr.length(); i++) {
         tokenContainer tokCont = tokenCutter(newExpr, i);
         StringManipulation strMan;
@@ -18,9 +19,14 @@ int TheShuntingYardAlgorithm::shuntingYard(string expression) {
             int num = strMan.convertToInteger(tokCont.token);
             numbers.push(num);
         } else {
-            operations.push(tokCont.token[0]);
+            calculateRemaining(numbers, operations, tokCont.token[0]);
         }
+        i = tokCont.index;
     }
+    calculateRemaining(numbers, operations, '0');
+    operations.pop();
+    ans = numbers.top();
+    return ans;
 }
 
 string TheShuntingYardAlgorithm::parseExpression(string expression) {
@@ -34,24 +40,60 @@ string TheShuntingYardAlgorithm::parseExpression(string expression) {
     return res;
 }
 
-bool TheShuntingYardAlgorithm::isNumber(char c) {
+bool TheShuntingYardAlgorithm::isDigit(char c) {
     return c - '0' >= 0 && c - '0' <= 9;
 }
 
 TheShuntingYardAlgorithm::tokenContainer TheShuntingYardAlgorithm::tokenCutter(string expression, int curIndex) {
     tokenContainer tokCont;
 
-    if (!isNumber(expression[curIndex])) {
+    if (!isDigit(expression[curIndex])) {
         tokCont.token = expression[curIndex];
         tokCont.index = curIndex;
         return tokCont;
     }
 
-    for (int i = curIndex; i < expression.length() && isNumber(expression[i]); i++) {
+    for (int i = curIndex; i < expression.length() && isDigit(expression[i]); i++) {
         tokCont.token += expression[i];
         tokCont.index = i;
     }
     return tokCont;
 }
 
+void TheShuntingYardAlgorithm::calculateRemaining(stack<int> &numbers, stack<char> &operations, char symbol) {
+    while (!operations.empty() && (symbol == '0' || !hasGreaterRank(symbol, operations.top()))) {
+        int b = numbers.top();
+        numbers.pop();
+        int a = numbers.top();
+        numbers.pop();
+        char c = operations.top();
+        operations.pop();
 
+        int ans = evaluateTwo(a, b, c);
+        numbers.push(ans);
+    }
+    operations.push(symbol);
+}
+
+int TheShuntingYardAlgorithm::operationRank(char c) {
+    if (c == '+' || c == '-')return 1;
+    if (c == '*' || c == '/')return 2;
+    if (c == '^')return 3;
+    return 0;
+}
+
+bool TheShuntingYardAlgorithm::hasGreaterRank(char a, char b) {
+    return operationRank(a) > operationRank(b);
+}
+
+int TheShuntingYardAlgorithm::evaluateTwo(int num1, int num2, char symbol) {
+    if (symbol == '^') {
+        Arithmetics aritm;
+        return aritm.fastExponenting(num1, num2);
+    }
+    if (symbol == '+') return num1 + num2;
+    if (symbol == '-') return num1 - num2;
+    if (symbol == '*') return num1 * num2;
+    if (symbol == '/') return num1 / num2;
+    return 0;
+}
