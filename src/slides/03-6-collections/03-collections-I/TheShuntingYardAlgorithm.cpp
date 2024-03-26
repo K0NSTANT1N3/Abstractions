@@ -6,8 +6,9 @@
 
 int TheShuntingYardAlgorithm::shuntingYard(string expression) {
     int ans = 0;
-    stack<int> numbers;
-    stack<char> operations;
+    stack<stackPair> stackPairs;
+    stackPair stackPair;
+    stackPairs.push(stackPair);
 
     string newExpr = parseExpression(std::move(expression));
 
@@ -15,17 +16,34 @@ int TheShuntingYardAlgorithm::shuntingYard(string expression) {
         tokenContainer tokCont = tokenCutter(newExpr, i);
         StringManipulation strMan;
 
-        if (strMan.isInteger(tokCont.token)) {
+        if(tokCont.token == "("){
+            TheShuntingYardAlgorithm::stackPair newPair;
+            stackPairs.push(newPair);
+            i = tokCont.index;
+            continue;
+        }
+
+        if(tokCont.token == ")"){
+            calculateRemaining(stackPairs.top().numbers, stackPairs.top().operations, '0');
+            stackPairs.top().operations.pop();
+            int num = stackPairs.top().numbers.top();
+            stackPairs.pop();
+            stackPairs.top().numbers.push(num);
+            i = tokCont.index;
+            continue;
+        }
+
+        if (strMan.isInteger(tokCont.token)) {//has to be a number
             int num = strMan.convertToInteger(tokCont.token);
-            numbers.push(num);
-        } else {
-            calculateRemaining(numbers, operations, tokCont.token[0]);
+            stackPairs.top().numbers.push(num);
+        } else {//has to be an operation
+            calculateRemaining(stackPairs.top().numbers, stackPairs.top().operations, tokCont.token[0]);
         }
         i = tokCont.index;
     }
-    calculateRemaining(numbers, operations, '0');
-    operations.pop();
-    ans = numbers.top();
+    calculateRemaining(stackPairs.top().numbers, stackPairs.top().operations, '0');
+    stackPairs.top().operations.pop();
+    ans = stackPairs.top().numbers.top();
     return ans;
 }
 
@@ -44,6 +62,7 @@ bool TheShuntingYardAlgorithm::isDigit(char c) {
     return c - '0' >= 0 && c - '0' <= 9;
 }
 
+//returns the index of the last digit of the number
 TheShuntingYardAlgorithm::tokenContainer TheShuntingYardAlgorithm::tokenCutter(string expression, int curIndex) {
     tokenContainer tokCont;
 

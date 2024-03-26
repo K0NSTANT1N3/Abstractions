@@ -6,11 +6,11 @@
 #define ABSTRACTIONS_THESHUNTINGYARDALGORITHM_H
 
 #include<iostream>
-#include <tokenscanner.h>
+#include "tokenscanner.h"
 #include<stack>
 #include <utility>
-#include "../../2016-practice-problems/02/StringManipulation.h"
-#include "../../additional/recursion/Arithmetics.h"
+#include "../../../2016-practice-problems/02/StringManipulation.h"
+#include "../../../additional/recursion/Arithmetics.h"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ public:
     int shuntingYard(string expression);
 
 private:
-    string operands = "*/+-^";
+    string operands = "*/+-^()";
 
     struct tokenContainer {
         int index;
@@ -27,6 +27,15 @@ private:
         tokenContainer(){
             token = "";
             index = 0;
+        }
+    };
+
+    struct stackPair{
+        stack<int> numbers;
+        stack<char> operations;
+        stackPair(){
+            stack<int> numbers = stack<int>();
+            stack<char> operations = stack<char>();
         }
     };
 

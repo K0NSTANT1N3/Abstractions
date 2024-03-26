@@ -9,6 +9,6 @@ using namespace std;
 
 int main() {
     TheShuntingYardAlgorithm shunt;
-    int a = shunt.shuntingYard("1+4*3^2-2");
+    int a = shunt.shuntingYard("1+4*3^2-2*(1+2)^2");
     cout << a;
 }

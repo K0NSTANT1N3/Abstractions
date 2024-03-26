@@ -5,7 +5,7 @@
 #include "SelfReadingFile.h"
 
 void SelfReadingFile::archiveMyHeader() {
-    string filePath = "/home/konstantine/CLionProjects/Abstractions/slides/02/SelfReadingFile.h";
+    string filePath = "/home/konstantine/CLionProjects/Abstractions/slides/02-string-streams/SelfReadingFile.h";
     ifstream file(filePath);
 
     if (file.is_open()) {
