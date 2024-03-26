@@ -41,3 +41,16 @@ vector<vector<double>> MatrixOnMatrix::matrixExponentiation(vector<vector<double
     }
     return resMatrix;
 }
+
+vector<vector<double>> MatrixOnMatrix::LFactorization(vector<vector<double>> &matrix) {
+    vector<vector<double>> L(matrix.size(), vector<double>(matrix[0].size(), 0));
+
+    for (int i = 0; i < matrix.size(); i++) {
+        for (int j = 0; j < matrix[0].size(); j++) {
+
+        }
+    }
+
+    return L;
+}
+

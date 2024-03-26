@@ -10,7 +10,8 @@ using namespace std;
 
 
 class PowerOfTwo {
-
+public:
+    bool isPowerOfTwo(int n);
 };
 
 

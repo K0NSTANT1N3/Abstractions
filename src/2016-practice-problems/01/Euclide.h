@@ -9,7 +9,8 @@
 using namespace std;
 
 class Euclide {
-
+public:
+    int gcd(int a,int b);
 };
 
 

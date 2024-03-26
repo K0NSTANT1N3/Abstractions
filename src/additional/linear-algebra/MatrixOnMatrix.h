@@ -15,6 +15,10 @@ public:
     matrixMultiplication(vector<vector<double>> &matrix1, vector<vector<double>> &matrix2);
 
     vector<vector<double>> matrixExponentiation(vector<vector<double>> &matrix, int power);
+
+    vector<vector<double>> LFactorization(vector<vector<double>> &matrix);
+private:
+
 };
 
 #endif //ABSTRACTIONS_MATRIXONMATRIX_H
