@@ -3,12 +3,20 @@
 //
 
 #include <iostream>
-#include "03/TheShuntingYardAlgorithm.h"
+#include "03-6-collections/04-collections-II/ReptoreDefence.h"
 
 using namespace std;
 
 int main() {
-    TheShuntingYardAlgorithm shunt;
-    int a = shunt.shuntingYard("1+4*3^2-2*(1+2)^2");
-    cout << a;
+    ReptoreDefence reptoreDefence;
+    vector<vector<bool>> reptors = {
+            {false, false, true, false, false},
+            {false, true, false, false, false},
+            {false, false, false, false, false},
+            {true, false, false, false, false},
+            {false, false, false, false, true}
+    };
+    pair<int, int> result = reptoreDefence.reptorPresents(reptors);
+    cout << result.first << " " << result.second << endl;
+    return 0;
 }
