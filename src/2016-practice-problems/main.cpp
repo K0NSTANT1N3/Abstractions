@@ -10,11 +10,9 @@ using namespace std;
 
 int main() {
     CollectionsSetMap mp;
-    map<string, int> a = mp.countWordsFromFile("/home/konstantine/CLionProjects/Abstractions/src/2016-practice-problems/06/CollectionsSetMap.cpp");
-
-    for (auto &i : a) {
-        cout << i.first << " " << i.second << endl;
-    }
+    string a = "hello";
+    string b = "world";
+    mp.similarStrings(a, b,2);
 
     return 0;
 }
