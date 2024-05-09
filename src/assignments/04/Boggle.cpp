@@ -1,10 +1,11 @@
 /*
  * File: Boggle.cpp
  * ----------------
- * Name: [TODO: enter name here]
- * Section: [TODO: enter section leader here]
+ * Name: Konstantine Endeladze
+ * Section: 23-06-02
  * This file is the main starter file for Assignment #4, Boggle.
- * [TODO: extend the documentation]
+ *
+ * Unfortunately, I can't run graphical side so my code only contains the logic part of the game.
  */
 
 #include <iostream>
@@ -53,7 +54,7 @@ vector<vector<string>> getDiceVector();
 
 vector<vector<char>> getBoard(vector<vector<string>> &diceVector);
 
-vector<string> playerGuesses(vector<vector<char>> &board);
+Set<string> playerGuesses(vector<vector<char>> &board);
 
 bool isWordValid(vector<vector<char>> &board, string word);
 
@@ -64,6 +65,11 @@ bool allLetters(string basicString);
 bool canWordBeConstructed(vector<vector<char>> &board, string word, int row, int col, vector<vector<bool>> &visited);
 
 bool isWordOnBoard(vector<vector<char>> &board, string word);
+
+Set<string> computerGuesses(vector<vector<char>> &board, Set<string> &playerWords);
+
+void computerGuessesHelper(vector<vector<char>> &board, Set<string> &playerGuesses, int row, int col,
+                           string word, vector<vector<bool>> &visited, Set<string> &result);
 
 /* Main program */
 
@@ -76,8 +82,21 @@ int main() {
 //    vector<vector<string>> words = getDiceVector();
 //    vector<vector<char>> board = getBoard(words);
 
-    //create 4x4 board
-    vector<vector<char>> board =
+    vector<vector<char>> board = {
+            {'E', 'E', 'C', 'A'},
+            {'A', 'L', 'E', 'P'},
+            {'H', 'N', 'B', 'O'},
+            {'Q', 'T', 'T', 'Y'}
+    };
+
+
+    Set<string> playerWords = playerGuesses(board);
+
+    cout << playerWords << endl;
+
+    Set<string> computerWords = computerGuesses(board, playerWords);
+
+    cout << computerWords << endl;
 
     return 0;
 }
@@ -183,15 +202,15 @@ vector<vector<char>> getBoard(vector<vector<string>> &diceVector) {
     return board;
 }
 
-vector<string> playerGuesses(vector<vector<char>> &board) {
-    vector<string> guesses;
+Set<string> playerGuesses(vector<vector<char>> &board) {
+    Set<string> guesses;
     while (true) {
         string guess = getLine("Enter a word: ");
         if (guess == "") {
             break;
         }
         if (isWordValid(board, guess)) {
-            guesses.push_back(guess);
+            guesses.insert(guess);
         } else {
             cout << "Invalid word. Try again." << endl;
         }
@@ -256,4 +275,40 @@ void makeCapital(string &word) {
     for (int i = 0; i < word.size(); i++) {
         word[i] = toupper(word[i]);
     }
+}
+
+Set<string> computerGuesses(vector<vector<char>> &board, Set<string> &playerGuesses) {
+    Set<string> result;
+    for (int i = 0; i < board.size(); i++) {
+        for (int j = 0; j < board[i].size(); j++) {
+            string word = "";
+            vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size(), false));
+            computerGuessesHelper(board, playerGuesses, i, j, word, visited, result);
+        }
+    }
+    return result;
+}
+
+void computerGuessesHelper(vector<vector<char>> &board, Set<string> &playerGuesses, int row, int col, string word,
+                           vector<vector<bool>> &visited, Set<string> &result) {
+    word = toLowerCase(word);
+    if (row < 0 || row >= board.size() || col < 0 || col >= board[0].size() || visited[row][col] ||
+        !english.containsPrefix(word)) {
+        return;
+    }
+
+    word += tolower(board[row][col]);
+    if (word.size() >= 4 && english.contains(word) && !playerGuesses.contains(word)) {
+        result.add(word);
+    }
+
+    visited[row][col] = true;
+
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            computerGuessesHelper(board, playerGuesses, row + i, col + j, word, visited, result);
+        }
+    }
+
+    visited[row][col] = false;
 }
