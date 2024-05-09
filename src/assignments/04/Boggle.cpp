@@ -9,10 +9,10 @@
  */
 
 #include <iostream>
-//#include "gboggle.h"
-//#include "grid.h"
-//#include "gwindow.h"
-//#include "lexicon.h"
+#include "gboggle.h"
+#include "grid.h"
+#include "gwindow.h"
+#include "lexicon.h"
 #include "random.h"
 #include <vector>
 #include "simpio.h"
@@ -41,7 +41,7 @@ const string BIG_BOGGLE_CUBES[25] = {
 };
 
 /* new constants */
-Lexicon english("/home/konstantine/CLionProjects/Abstractions/src/assignments/04/EnglishWords.dat");
+Lexicon english("EnglishWords.dat");
 
 /* Function prototypes */
 
@@ -52,51 +52,35 @@ void giveInstructions();
 /* Additional function prototypes */
 vector<vector<string>> getDiceVector();
 
-vector<vector<char>> getBoard(vector<vector<string>> &diceVector);
+vector<vector<char>> getBoard(vector<vector<string>>& diceVector);
 
-Set<string> playerGuesses(vector<vector<char>> &board);
+Set<string> playerGuesses(vector<vector<char>>& board);
 
-bool isWordValid(vector<vector<char>> &board, string word);
+bool isWordValid(vector<vector<char>>& board, string word);
 
-void makeCapital(string &word);
+void makeCapital(string& word);
 
 bool allLetters(string basicString);
 
-bool canWordBeConstructed(vector<vector<char>> &board, string word, int row, int col, vector<vector<bool>> &visited);
+bool canWordBeConstructed(vector<vector<char>>& board, string word, int row, int col, vector<vector<bool>>& visited);
 
-bool isWordOnBoard(vector<vector<char>> &board, string word);
+bool isWordOnBoard(vector<vector<char>>& board, string word);
 
-Set<string> computerGuesses(vector<vector<char>> &board, Set<string> &playerWords);
+Set<string> computerGuesses(vector<vector<char>>& board, Set<string>& playerWords);
 
-void computerGuessesHelper(vector<vector<char>> &board, Set<string> &playerGuesses, int row, int col,
-                           string word, vector<vector<bool>> &visited, Set<string> &result);
+void computerGuessesHelper(vector<vector<char>>& board, Set<string>& playerGuesses, int row, int col,
+                           string word, vector<vector<bool>>& visited, Set<string>& result);
+
+void runnerMethod();
 
 /* Main program */
 
 int main() {
-//    GWindow gw(BOGGLE_WINDOW_WIDTH, BOGGLE_WINDOW_HEIGHT);
-//    initGBoggle(gw);
-//    welcome();
-//    giveInstructions();
-//
-//    vector<vector<string>> words = getDiceVector();
-//    vector<vector<char>> board = getBoard(words);
-
-    vector<vector<char>> board = {
-            {'E', 'E', 'C', 'A'},
-            {'A', 'L', 'E', 'P'},
-            {'H', 'N', 'B', 'O'},
-            {'Q', 'T', 'T', 'Y'}
-    };
-
-
-    Set<string> playerWords = playerGuesses(board);
-
-    cout << playerWords << endl;
-
-    Set<string> computerWords = computerGuesses(board, playerWords);
-
-    cout << computerWords << endl;
+    GWindow gw(BOGGLE_WINDOW_WIDTH, BOGGLE_WINDOW_HEIGHT);
+    initGBoggle(gw);
+    welcome();
+    giveInstructions();
+    runnerMethod();
 
     return 0;
 }
@@ -149,6 +133,28 @@ void giveInstructions() {
 }
 
 // [TODO: Fill in the rest of the code]
+void drawLetters(vector<vector<char>>& board) {
+    for (int i = 0; i < board.size(); i++) {
+        for (int j = 0; j < board.size(); ++j) {
+            labelCube(i, j, board[i][j]);
+        }
+    }
+}
+void drawComputerWords(Set<string>& computerWords) {
+    for (string s : computerWords) {
+        recordWordForPlayer(s, COMPUTER);
+    }
+}
+void runnerMethod() {
+    vector<vector<string>> words = getDiceVector();
+    vector<vector<char>> board = getBoard(words);
+    drawBoard(board.size(), board.size());
+    drawLetters(board);
+    Set<string> playerWords = playerGuesses(board);
+    Set<string> computerWords = computerGuesses(board, playerWords);
+    drawComputerWords(computerWords);
+
+}
 
 vector<vector<string>> getDiceVector() {
     vector<vector<string>> words;
@@ -187,7 +193,7 @@ bool allLetters(string basicString) {
     return true;
 }
 
-vector<vector<char>> getBoard(vector<vector<string>> &diceVector) {
+vector<vector<char>> getBoard(vector<vector<string>>& diceVector) {
     vector<vector<char>> board;
     for (int i = 0; i < diceVector.size(); i++) {
         vector<char> row;
@@ -198,32 +204,35 @@ vector<vector<char>> getBoard(vector<vector<string>> &diceVector) {
         }
         board.push_back(row);
     }
-
     return board;
 }
 
-Set<string> playerGuesses(vector<vector<char>> &board) {
+Set<string> playerGuesses(vector<vector<char>>& board) {
     Set<string> guesses;
     while (true) {
-        string guess = getLine("Enter a word: ");
-        if (guess == "") {
+        cout << "Enter word, -1 if you want to finish: " << endl;
+        string guess;
+        cin >> guess;
+        if (guess == "-1") {
             break;
         }
         if (isWordValid(board, guess)) {
             guesses.insert(guess);
-        } else {
+            recordWordForPlayer(guess, HUMAN);
+        }
+        else {
             cout << "Invalid word. Try again." << endl;
         }
     }
     return guesses;
 }
 
-bool isWordValid(vector<vector<char>> &board, string word) {
+bool isWordValid(vector<vector<char>>& board, string word) {
     return !(word.size() < 4 || word.size() > board.size() * board[0].size() || !english.contains(word) ||
              !isWordOnBoard(board, word));
 }
 
-bool canWordBeConstructed(vector<vector<char>> &board, string word, int row, int col, vector<vector<bool>> &visited) {
+bool canWordBeConstructed(vector<vector<char>>& board, string word, int row, int col, vector<vector<bool>>& visited) {
     if (word.size() == 0) {
         return true;
     }
@@ -255,7 +264,7 @@ bool canWordBeConstructed(vector<vector<char>> &board, string word, int row, int
     return false;
 }
 
-bool isWordOnBoard(vector<vector<char>> &board, string word) {
+bool isWordOnBoard(vector<vector<char>>& board, string word) {
     //initially visited hase all square false
     vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size(), false));
 
@@ -271,13 +280,13 @@ bool isWordOnBoard(vector<vector<char>> &board, string word) {
     return false;
 }
 
-void makeCapital(string &word) {
+void makeCapital(string& word) {
     for (int i = 0; i < word.size(); i++) {
         word[i] = toupper(word[i]);
     }
 }
 
-Set<string> computerGuesses(vector<vector<char>> &board, Set<string> &playerGuesses) {
+Set<string> computerGuesses(vector<vector<char>>& board, Set<string>& playerGuesses) {
     Set<string> result;
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board[i].size(); j++) {
@@ -289,8 +298,8 @@ Set<string> computerGuesses(vector<vector<char>> &board, Set<string> &playerGues
     return result;
 }
 
-void computerGuessesHelper(vector<vector<char>> &board, Set<string> &playerGuesses, int row, int col, string word,
-                           vector<vector<bool>> &visited, Set<string> &result) {
+void computerGuessesHelper(vector<vector<char>>& board, Set<string>& playerGuesses, int row, int col, string word,
+                           vector<vector<bool>>& visited, Set<string>& result) {
     word = toLowerCase(word);
     if (row < 0 || row >= board.size() || col < 0 || col >= board[0].size() || visited[row][col] ||
         !english.containsPrefix(word)) {
