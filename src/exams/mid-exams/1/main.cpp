@@ -1,14 +1,19 @@
-//
-// Created by konstantine on 4/28/24.
-//
+#include <iostream>
+#include <string>
+#include "2024/1/Domino.h"
+#include "vector"
 
-#include "2021/Solutions.h"
+using namespace std;
 
 int main() {
-    Solutions sol;
-    // test
-    Vector<int> res = sol.numsSameConsecDiff(4,4);
-    cout << res << endl;
+    //test case 1
+    Vector<Domino::rockT> rocks;
+    rocks.add({6, 6});
+    rocks.add({5, 5});
+    rocks.add({4, 6});
+
+    Domino domino;
+    cout << domino.maxDominoScore(rocks) << endl; // 22
 
 
     return 0;

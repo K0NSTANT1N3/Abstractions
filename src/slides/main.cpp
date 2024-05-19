@@ -3,15 +3,12 @@
 //
 
 #include <iostream>
-#include "03-06-collections/06-collections-IV/BruteForce.h"
+#include "07-10-thinking-recursively/08-thinking-recursively-II/Subsets.h"
 
 using namespace std;
 
 int main() {
-  // test dfs
-    BruteForce bf;
-    vector<char> symbols = {'a', 'b', 'c'};
-    bf.generateAllDFS(3, symbols, "");
+
 
     return 0;
 }
