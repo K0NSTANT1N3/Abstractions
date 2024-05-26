@@ -7,7 +7,13 @@ using namespace std;
 
 int main() {
     //test case 1
-    Domino* dm;
+    Vector<Domino::rockT> rocks;
+    rocks.add({6, 6});
+    rocks.add({5, 5});
+    rocks.add({4, 6});
+
+    Domino domino;
+    cout << domino.maxDominoScore(rocks) << endl; // 22
 
 
     return 0;
