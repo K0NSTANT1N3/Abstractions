@@ -2,7 +2,7 @@
  * File: Boggle.cpp
  * ----------------
  * Name: Konstantine Endeladze
- * Section: 23-06-02
+ * Section: 23-06-2
  * This file is the main starter file for Assignment #4, Boggle.
  *
  * Unfortunately, I can't run graphical side so my code only contains the logic part of the game.

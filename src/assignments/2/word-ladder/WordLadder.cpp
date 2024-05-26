@@ -20,7 +20,7 @@ stack<string> WordLadder::oneStep(string s, Lexicon english) {
 
 /** public */
 stack<string> WordLadder::findLadder(string start, string dest) {
-    Lexicon english("/home/konstantine/CLionProjects/Abstractions/src/assignments/02/word-ladder/EnglishWords.dat");
+    Lexicon english("/home/konstantine/CLionProjects/Abstractions/src/assignments/2/word-ladder/EnglishWords.dat");
 
     queue<stack<string>> ladder;
     set<string> used;
@@ -53,4 +53,4 @@ stack<string> WordLadder::findLadder(string start, string dest) {
     }
     return stack<string>();
 }
-// Path: src/assignments/02/word-ladder/WordLadder.h
+// Path: src/assignments/2/word-ladder/WordLadder.h
