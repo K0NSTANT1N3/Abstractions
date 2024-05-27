@@ -8,7 +8,7 @@
 #include "unsorted-vector/pqueue-vector.h"
 #include "sorted-linkedlist/pqueue-linkedlist.h"
 #include "sorted-double-linkedlist/pqueue-doublylinkedlist.h"
-#include "../Assignment5-vs2022/Assignment5-vs2022/Priority Queue/pqueue-heap.h"
+#include "heap/pqueue-heap.h"
 #include "../Assignment5-vs2022/Assignment5-vs2022/Priority Queue/pqueue-extra.h"
 #include "random.h"
 #include "simpio.h"

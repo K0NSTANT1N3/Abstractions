@@ -6,10 +6,9 @@ include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
 
 # Add the executable target
 add_executable(Abstractions
-        src/assignments/5/unsorted-double-linkedlist/pqueue-doublylinkedlist.cpp
-        src/assignments/5/unsorted-double-linkedlist/test.cpp
-        src/assignments/5/unsorted-double-linkedlist/pqueue-doublylinkedlist.h
-        )
+        src/assignments/5/heap/pqueue-heap.cpp
+        src/assignments/5/heap/pqueue-heap.h
+        src/assignments/5/heap/HeapPriorityQueueTest.cpp)
 
 
 # Link the executable target with the library target
