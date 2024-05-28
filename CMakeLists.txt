@@ -6,9 +6,9 @@ include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
 
 # Add the executable target
 add_executable(Abstractions
-        src/assignments/5/heap/pqueue-heap.cpp
-        src/assignments/5/heap/pqueue-heap.h
-        src/assignments/5/heap/HeapPriorityQueueTest.cpp)
+        src/assignments/5/extension/pqueueLinkedHeap.h
+        src/assignments/5/extension/pqueueLinkedHeap.cpp
+        src/assignments/5/extension/test.cpp)
 
 
 # Link the executable target with the library target
