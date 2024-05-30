@@ -6,9 +6,9 @@ include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
 
 # Add the executable target
 add_executable(Abstractions
-        src/assignments/5/extension/pqueueLinkedHeap.h
-        src/assignments/5/extension/pqueueLinkedHeap.cpp
-        src/assignments/5/extension/test.cpp)
+        src/additional/domino/Domino.cpp
+        src/additional/domino/Domino.h
+        src/additional/main.cpp)
 
 
 # Link the executable target with the library target
