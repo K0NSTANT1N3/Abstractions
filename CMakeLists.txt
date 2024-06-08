@@ -6,9 +6,8 @@ include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
 
 # Add the executable target
 add_executable(Abstractions
-        src/additional/domino/Domino.cpp
-        src/additional/domino/Domino.h
-        src/additional/main.cpp)
+
+        src/tmp/OurLexicon.cpp src/tmp/OurLexicon.h src/2016-practice-problems/20/LLString.cpp src/2016-practice-problems/20/LLString.h)
 
 
 # Link the executable target with the library target
