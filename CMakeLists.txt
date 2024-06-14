@@ -7,16 +7,10 @@ include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Ad
 
 # Add the executable target
 add_executable(Abstractions
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/bstream.cpp
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/bstream.h
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanEncoding.cpp
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanEncoding.h
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanEncodingTest.cpp
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanTypes.h
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/MemoryDiagnostics.cpp
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/MemoryDiagnostics.h
-        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/ReferenceHuffmanEncoding.h
-
+        src/exams/mid-exams/2/midterm2_1/problems/longest_path.cpp
+        src/exams/mid-exams/2/midterm2_1/problems/longest_path.h
+        src/exams/mid-exams/2/midterm2_1/problems/common.h
+        src/exams/mid-exams/2/midterm2_1/problems/main.cpp
         )
 
 # Link the executable target with the library target
