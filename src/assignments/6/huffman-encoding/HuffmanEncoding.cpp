@@ -7,6 +7,7 @@
  */
 
 #include "HuffmanEncoding.h"
+#include "pqueue.h"
 
 /* Function: getFrequencyTable
  * Usage: Map<ext_char, int> freq = getFrequencyTable(file);
@@ -21,10 +22,80 @@
  * tree built from these frequencies will have an encoding for
  * the PSEUDO_EOF character.
  */
-Map<ext_char, int> getFrequencyTable(istream& file) {
-	// TODO: Implement this!
-	
-	return Map<ext_char, int>();	
+Map<ext_char, int> getFrequencyTable(istream &file) {
+    Map<ext_char, int> ans;
+    char c;
+    ext_char ch;
+    while (file.get(c)) {
+        ch = c;
+        ans[ch]++;
+    }
+    ans[PSEUDO_EOF] = 1;
+
+    return ans;
+}
+
+
+void codesOfChar(PriorityQueue<int> &indexesOfUnionsInArray, std::string (&parentUnion)[600], int k) {
+    /* Base Case */
+    if (indexesOfUnionsInArray.size() <= 2) {
+        int i1 = indexesOfUnionsInArray.dequeue();
+        int i0 = indexesOfUnionsInArray.dequeue();
+
+        parentUnion[i1] = "1";
+        parentUnion[i0] = "0";
+        return;
+    }
+
+    /* Inductive Step */
+    int i1Priority = indexesOfUnionsInArray.peekPriority();
+    int i1 = indexesOfUnionsInArray.dequeue();
+
+    int i0Priority = indexesOfUnionsInArray.peekPriority();
+    int i0 = indexesOfUnionsInArray.dequeue();
+
+    int newPriority = i1Priority + i0Priority;
+    indexesOfUnionsInArray.enqueue(k, newPriority);
+
+    codesOfChar(indexesOfUnionsInArray, parentUnion, k + 1);
+    parentUnion[i1] = parentUnion[k] + "1";
+    parentUnion[i0] = parentUnion[k] + "0";
+}
+
+void buildTreeFromMap(Map<string, ext_char> &codedChars, Map<ext_char, int> &frequencies, Node *&head) {
+    /* Base Case */
+    if (codedChars.size() <= 0) {
+        head = NULL;
+        return;
+    } else if (codedChars.size() == 1) {
+        for (string str: codedChars) {
+            ext_char curChar = codedChars[str];
+            head->character = curChar;
+            head->weight = frequencies[curChar];
+            head->one = head->zero = NULL;
+        }
+        return;
+    } else {
+        Map<string, ext_char> zeroCodedChars;
+        Map<string, ext_char> oneCodedChars;
+
+        for (string str: codedChars) {
+            if (str[0] == '0') {
+                zeroCodedChars.put(str.substr(1), codedChars[str]);
+            } else if (str[0] == '1') {
+                oneCodedChars.put(str.substr(1), codedChars[str]);
+            }
+        }
+
+        head->character = NOT_A_CHAR;
+        head->one = new Node;
+        head->zero = new Node;
+
+        buildTreeFromMap(zeroCodedChars, frequencies, head->zero);
+        buildTreeFromMap(oneCodedChars, frequencies, head->one);
+
+        head->weight = head->zero->weight + head->one->weight;
+    }
 }
 
 /* Function: buildEncodingTree
@@ -38,10 +109,38 @@ Map<ext_char, int> getFrequencyTable(istream& file) {
  * entry in the map, since the PSEUDO_EOF character will always
  * be present.
  */
-Node* buildEncodingTree(Map<ext_char, int>& frequencies) {
-	// TODO: Implement this!
-	
-	return NULL;
+Node *buildEncodingTree(Map<ext_char, int> &frequencies) {
+    PriorityQueue<int> indexesOfUnionsInArray;
+
+    string parentUnion[600];
+    ext_char charNumeration[300];
+
+    int count = 0;
+    for (ext_char c: frequencies) { // create priority queue of characters
+        count++;
+        charNumeration[count] = c;
+        indexesOfUnionsInArray.enqueue(count, frequencies[c]);
+    }
+
+    /*
+     * charNumeration contains characters and their indexes
+     * charArchive contains frequency of characters on indexes in charNumeration array
+     *
+     */
+
+    codesOfChar(indexesOfUnionsInArray, parentUnion, count + 1);
+
+    Map<string, ext_char> codedChars;
+    for (int i = 1; i <= count; i++) {
+        ext_char ch = charNumeration[i];
+        string chString = parentUnion[i];
+
+        codedChars.put(chString, ch);
+    }
+
+    Node *head = new Node;
+    buildTreeFromMap(codedChars, frequencies, head);
+    return head;
 }
 
 /* Function: freeTree
@@ -50,8 +149,24 @@ Node* buildEncodingTree(Map<ext_char, int>& frequencies) {
  * Deallocates all memory allocated for a given encoding
  * tree.
  */
-void freeTree(Node* root) {
-	// TODO: Implement this!
+void freeTree(Node *root) {
+    if (root == NULL)return;
+
+    freeTree(root->one);
+    freeTree(root->zero);
+    delete root;
+}
+
+void getCodeFromTree(Node *encodingTree, Map<ext_char, string> &ans, string curPath) {
+    if (encodingTree == NULL)return;
+
+    if (encodingTree->character == NOT_A_CHAR) {
+        getCodeFromTree(encodingTree->zero, ans, curPath + "0");
+        getCodeFromTree(encodingTree->one, ans, curPath + "1");
+        return;
+    }
+
+    ans.put(encodingTree->character, curPath);
 }
 
 /* Function: encodeFile
@@ -71,9 +186,44 @@ void freeTree(Node* root) {
  *     to it, and the file cursor is at the end of the file.
  *     This means that you should just start writing the bits
  *     without seeking the file anywhere.
- */ 
-void encodeFile(istream& infile, Node* encodingTree, obstream& outfile) {
-	// TODO: Implement this!
+ */
+void encodeFile(istream &infile, Node *encodingTree, obstream &outfile) {
+    Map<ext_char, string> ans;
+    getCodeFromTree(encodingTree, ans, "");
+
+    char c;
+    ext_char ec;
+
+    while (infile.get(c)) {
+        ec = c;
+        string hashStr = ans.get(ec);
+
+        for (char i: hashStr) {
+            if (i == '1') outfile.writeBit(1);
+            else outfile.writeBit(0);
+        }
+    }
+
+    string eofStr = ans.get(PSEUDO_EOF);
+    for (char i: eofStr) {
+        if (i == '1') outfile.writeBit(1);
+        else outfile.writeBit(0);
+    }
+}
+
+void getHashFromTree(Node *encodingTree, Map<string, ext_char> &hashOfStr, string curPath) {
+    /* Base Case */
+    if (encodingTree == NULL) {
+        return;
+    }
+    if (encodingTree->character != NOT_A_CHAR) {
+        hashOfStr.put(curPath, encodingTree->character);
+        return;
+    }
+
+    /* Inductive Step */
+    getHashFromTree(encodingTree->zero, hashOfStr, curPath + "0");
+    getHashFromTree(encodingTree->one, hashOfStr, curPath + "1");
 }
 
 /* Function: decodeFile
@@ -88,8 +238,31 @@ void encodeFile(istream& infile, Node* encodingTree, obstream& outfile) {
  *
  *   - The output file is open and ready for writing.
  */
-void decodeFile(ibstream& infile, Node* encodingTree, ostream& file) {
-	// TODO: Implement this!
+void decodeFile(ibstream &infile, Node *encodingTree, ostream &file) {
+    Map<string, ext_char> hashOfStr;
+    getHashFromTree(encodingTree, hashOfStr, "");
+
+    string constructedSequence = "";
+    ext_char charFromSequence = NOT_A_CHAR;
+
+    while (true) {
+        int curBit = infile.readBit();
+
+        if (curBit == 0) {
+            constructedSequence += "0";
+        } else if (curBit == 1) {
+            constructedSequence += "1";
+        }
+
+        if (hashOfStr.containsKey(constructedSequence)) {
+            charFromSequence = hashOfStr.get(constructedSequence);
+            constructedSequence = "";
+
+            if (charFromSequence == PSEUDO_EOF)break;
+
+            file.put(charFromSequence);
+        }
+    }
 }
 
 /* Function: writeFileHeader
@@ -106,36 +279,36 @@ void decodeFile(ibstream& infile, Node* encodingTree, ostream& file) {
  * readFileHeader function defined below this one so that it
  * can properly read the data back.
  */
-void writeFileHeader(obstream& outfile, Map<ext_char, int>& frequencies) {
-	/* The format we will use is the following:
-	 *
-	 * First number: Total number of characters whose frequency is being
-	 *               encoded.
-	 * An appropriate number of pairs of the form [char][frequency][space],
-	 * encoding the number of occurrences.
-	 *
-	 * No information about PSEUDO_EOF is written, since the frequency is
-	 * always 1.
-	 */
-	 
-	/* Verify that we have PSEUDO_EOF somewhere in this mapping. */
-	if (!frequencies.containsKey(PSEUDO_EOF)) {
-		error("No PSEUDO_EOF defined.");
-	}
-	
-	/* Write how many encodings we're going to have.  Note the space after
-	 * this number to ensure that we can read it back correctly.
-	 */
-	outfile << frequencies.size() - 1 << ' ';
-	
-	/* Now, write the letter/frequency pairs. */
-	foreach (ext_char ch in frequencies) {
-		/* Skip PSEUDO_EOF if we see it. */
-		if (ch == PSEUDO_EOF) continue;
-		
-		/* Write out the letter and its frequency. */
-		outfile << char(ch) << frequencies[ch] << ' ';
-	}
+void writeFileHeader(obstream &outfile, Map<ext_char, int> &frequencies) {
+    /* The format we will use is the following:
+     *
+     * First number: Total number of characters whose frequency is being
+     *               encoded.
+     * An appropriate number of pairs of the form [char][frequency][space],
+     * encoding the number of occurrences.
+     *
+     * No information about PSEUDO_EOF is written, since the frequency is
+     * always 1.
+     */
+
+    /* Verify that we have PSEUDO_EOF somewhere in this mapping. */
+    if (!frequencies.containsKey(PSEUDO_EOF)) {
+        error("No PSEUDO_EOF defined.");
+    }
+
+    /* Write how many encodings we're going to have.  Note the space after
+     * this number to ensure that we can read it back correctly.
+     */
+    outfile << frequencies.size() - 1 << ' ';
+
+    /* Now, write the letter/frequency pairs. */
+    foreach (ext_char ch in frequencies) {
+            /* Skip PSEUDO_EOF if we see it. */
+            if (ch == PSEUDO_EOF) continue;
+
+            /* Write out the letter and its frequency. */
+            outfile << char(ch) << frequencies[ch] << ' ';
+        }
 }
 
 /* Function: readFileHeader
@@ -151,40 +324,40 @@ void writeFileHeader(obstream& outfile, Map<ext_char, int>& frequencies) {
  * writeFileHeader function defined before this one so that it
  * can properly write the data.
  */
-Map<ext_char, int> readFileHeader(ibstream& infile) {
-	/* This function inverts the mapping we wrote out in the
-	 * writeFileHeader function before.  If you make any
-	 * changes to that function, be sure to change this one
-	 * too!
-	 */
-	Map<ext_char, int> result;
-	
-	/* Read how many values we're going to read in. */
-	int numValues;
-	infile >> numValues;
-	
-	/* Skip trailing whitespace. */
-	infile.get();
-	
-	/* Read those values in. */
-	for (int i = 0; i < numValues; i++) {
-		/* Get the character we're going to read. */
-		ext_char ch = infile.get();
-		
-		/* Get the frequency. */
-		int frequency;
-		infile >> frequency;
-		
-		/* Skip the space character. */
-		infile.get();
-		
-		/* Add this to the encoding table. */
-		result[ch] = frequency;
-	}
-	
-	/* Add in 1 for PSEUDO_EOF. */
-	result[PSEUDO_EOF] = 1;
-	return result;
+Map<ext_char, int> readFileHeader(ibstream &infile) {
+    /* This function inverts the mapping we wrote out in the
+     * writeFileHeader function before.  If you make any
+     * changes to that function, be sure to change this one
+     * too!
+     */
+    Map<ext_char, int> result;
+
+    /* Read how many values we're going to read in. */
+    int numValues;
+    infile >> numValues;
+
+    /* Skip trailing whitespace. */
+    infile.get();
+
+    /* Read those values in. */
+    for (int i = 0; i < numValues; i++) {
+        /* Get the character we're going to read. */
+        ext_char ch = infile.get();
+
+        /* Get the frequency. */
+        int frequency;
+        infile >> frequency;
+
+        /* Skip the space character. */
+        infile.get();
+
+        /* Add this to the encoding table. */
+        result[ch] = frequency;
+    }
+
+    /* Add in 1 for PSEUDO_EOF. */
+    result[PSEUDO_EOF] = 1;
+    return result;
 }
 
 /* Function: compress
@@ -198,8 +371,11 @@ Map<ext_char, int> readFileHeader(ibstream& infile) {
  * which should not require much logic of its own and should
  * primarily be glue code.
  */
-void compress(ibstream& infile, obstream& outfile) {
-	// TODO: Implement this!
+void compress(ibstream &infile, obstream &outfile) {
+    Map<ext_char, int> freq = getFrequencyTable(infile);
+    Node* root = buildEncodingTree(freq);
+
+    encodeFile(infile, root, outfile);
 }
 
 /* Function: decompress
@@ -214,7 +390,7 @@ void compress(ibstream& infile, obstream& outfile) {
  * which should not require much logic of its own and should
  * primarily be glue code.
  */
-void decompress(ibstream& infile, ostream& outfile) {
-	// TODO: Implement this!
+void decompress(ibstream &infile, ostream &outfile) {
+
 }
 

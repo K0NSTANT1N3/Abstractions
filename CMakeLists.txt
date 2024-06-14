@@ -3,12 +3,21 @@ project(Abstractions)
 
 # Include the directory containing header files
 include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
+include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Add this line
 
 # Add the executable target
 add_executable(Abstractions
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/bstream.cpp
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/bstream.h
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanEncoding.cpp
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanEncoding.h
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanEncodingTest.cpp
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/HuffmanTypes.h
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/MemoryDiagnostics.cpp
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/MemoryDiagnostics.h
+        src/assignments/Assignment6-vs2022/Assignment6-vs2022/Huffman-Encoding/ReferenceHuffmanEncoding.h
 
-        src/tmp/OurLexicon.cpp src/tmp/OurLexicon.h src/2016-practice-problems/20/LLString.cpp src/2016-practice-problems/20/LLString.h)
-
+        )
 
 # Link the executable target with the library target
 target_link_libraries(Abstractions ${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib/libStanfordCPPLib.a)

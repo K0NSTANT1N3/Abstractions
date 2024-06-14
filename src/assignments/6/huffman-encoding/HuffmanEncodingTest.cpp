@@ -940,6 +940,7 @@ void testEnvironment() {
 
 /* Displays the menu and drives the testing code. */
 int main() {
+
 	testEnvironment();
 
 	while (true) {
