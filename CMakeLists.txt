@@ -7,11 +7,8 @@ include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Ad
 
 # Add the executable target
 add_executable(Abstractions
-        src/exams/mid-exams/2/2018/version-1/problems/my_string.cpp
-        src/exams/mid-exams/2/2018/version-1/problems/my_string.cpp
-        src/exams/mid-exams/2/2018/version-1/problems/main.cpp
-
-        )
+        src/exams/mid-exams/2/unnamed/SumOfTwoLinkedList.cpp
+        src/exams/mid-exams/2/unnamed/SumOfTwoLinkedList.h src/exams/mid-exams/2/unnamed/main.cpp)
 
 # Link the executable target with the library target
 target_link_libraries(Abstractions ${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib/libStanfordCPPLib.a)
