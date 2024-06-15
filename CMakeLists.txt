@@ -7,10 +7,10 @@ include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Ad
 
 # Add the executable target
 add_executable(Abstractions
-        src/exams/mid-exams/2/midterm2_1/problems/longest_path.cpp
-        src/exams/mid-exams/2/midterm2_1/problems/longest_path.h
-        src/exams/mid-exams/2/midterm2_1/problems/common.h
+        src/exams/mid-exams/2/midterm2_1/problems/my_string.cpp
+        src/exams/mid-exams/2/midterm2_1/problems/my_string.cpp
         src/exams/mid-exams/2/midterm2_1/problems/main.cpp
+
         )
 
 # Link the executable target with the library target

@@ -11,182 +11,182 @@
 
 using namespace std;
 
-void printTestResults(bool passed, int & testNum, int & passedCounter) {
-	testNum++;
-	if (passed) {
-		cout << "test " << testNum << " passed" << endl;
-		passedCounter++;
-	} else {
-		cout << "test " << testNum << " failed" << endl;
-	}
+void printTestResults(bool passed, int &testNum, int &passedCounter) {
+    testNum++;
+    if (passed) {
+        cout << "test " << testNum << " passed" << endl;
+        passedCounter++;
+    } else {
+        cout << "test " << testNum << " failed" << endl;
+    }
 }
-//
-//bool equalsMyString(string str, MyString *s) {
-//	if (str.length() != s->length()) {
-//		return false;
-//	}
-//
-//	for (int i=0; i<s->length(); i++) {
-//		if (str[i] != s->get(i)) {
-//			return false;
-//		}
-//	}
-//	return true;
-//}
-//
-//MyString* initMyString(string str) {
-//	MyString* s = new MyString;
-//	for (int i=0; i<str.length(); i++) {
-//		s->insert(i, str[i]);
-//	}
-//	return s;
-//}
 
-//void runStringTests() {
-//	cout << "### Run String tests ###" << endl;
-//	int testNum = 0;
-//	int passedCounter = 0;
-//	MyString * s;
-//	bool passed;
-//	//#1
-//	passed = false;
-//	s = new MyString;
-//	printTestResults(s->length() == 0, testNum, passedCounter);
-//	//#2
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	passed = s->length() == 1 && s->get(0) == 'a';
-//	printTestResults(passed, testNum, passedCounter);
-//	//#3
-//	s = new MyString;
-//	s->insert(0, 'b');
-//	s->insert(0, 'a');
-//	s->insert(2, 'c');
-//	passed = s->length() == 3 && equalsMyString("abc", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#4
-//	s = new MyString;
-//	s->insert(0, 'b');
-//	s->insert(0, 'a');
-//	s->insert(2, 'c');
-//	s->insert(1, 'c');
-//	s->insert(2, 'd');
-//	passed = s->length() == 5 && equalsMyString("acdbc", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#5
-//	s = new MyString;
-//	s->insert(0, 'b');
-//	s->insert(0, 'a');
-//	s->insert(2, 'c');
-//	s->insert(1, 'c');
-//	s->insert(2, 'd');
-//	s->set(0, 't');
-//	passed = s->length() == 5 && equalsMyString("tcdbc", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#6
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'c');
-//	s->insert(1, 'c');
-//	s->insert(2, 'd');
-//	s->set(0, 't');
-//	s->set(s->length()-1, 't');
-//	passed = s->length() == 4 && equalsMyString("tcdt", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#7
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'c');
-//	s->insert(1, 'c');
-//	s->insert(2, 'd');
-//	s->set(0, 't');
-//	s->insert(0, 'a');
-//	s->set(s->length()-1, 't');
-//	s->insert(s->length(), 'k');
-//	passed = s->length() == 6 && equalsMyString("atcdtk", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#8
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s = s->substr(0, 1);
-//	passed = equalsMyString("a", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#9
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s = s->substr(0, 0);
-//	passed = equalsMyString("", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#10
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'b');
-//	s->insert(2, 'c');
-//	s->insert(3, 'd');
-//	s->insert(4, 'e');
-//	s = s->substr(3, 2);
-//	passed = equalsMyString("de", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#11
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'b');
-//	s->insert(2, 'c');
-//	s->insert(3, 'd');
-//	s->insert(4, 'e');
-//	s = s->substr(0, s->length());
-//	passed = equalsMyString("abcde", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#12
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'b');
-//	s->insert(2, 'c');
-//	s->insert(3, 'd');
-//	s->insert(4, 'e');
-//	s = s->substr(0, s->length());
-//	passed = equalsMyString("abcde", s);
-//	printTestResults(passed, testNum, passedCounter);
-//	//#13
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'b');
-//	s->insert(2, 'c');
-//	s->insert(3, 'd');
-//	s->insert(4, 'e');
-//	passed = s->find(initMyString("abcdef")) == -1;
-//	printTestResults(passed, testNum, passedCounter);
-//	//#14
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'b');
-//	s->insert(2, 'c');
-//	s->insert(3, 'd');
-//	s->insert(4, 'e');
-//	passed = s->find(initMyString("abcde")) == 0;
-//	printTestResults(passed, testNum, passedCounter);
-//	//#15
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'b');
-//	s->insert(2, 'c');
-//	s->insert(3, 'd');
-//	s->insert(4, 'e');
-//	passed = s->find(initMyString("de")) == 3;
-//	printTestResults(passed, testNum, passedCounter);
-//	//#16
-//	s = new MyString;
-//	s->insert(0, 'a');
-//	s->insert(1, 'b');
-//	s->insert(2, 'c');
-//	s->insert(3, 'd');
-//	s->insert(4, 'e');
-//	passed = s->find(initMyString("abcc")) == -1;
-//	printTestResults(passed, testNum, passedCounter);
-//
-//
-//	cout << "###### passed " << passedCounter << " tests ######" << endl;
-//}
+bool equalsMyString(string str, MyString *s) {
+    if (str.length() != s->length()) {
+        return false;
+    }
+
+    for (int i = 0; i < s->length(); i++) {
+        if (str[i] != s->get(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+MyString *initMyString(string str) {
+    MyString *s = new MyString;
+    for (int i = 0; i < str.length(); i++) {
+        s->insert(i, str[i]);
+    }
+    return s;
+}
+
+void runStringTests() {
+    cout << "### Run String tests ###" << endl;
+    int testNum = 0;
+    int passedCounter = 0;
+    MyString *s;
+    bool passed;
+    //#1
+    passed = false;
+    s = new MyString;
+    printTestResults(s->length() == 0, testNum, passedCounter);
+    //#2
+    s = new MyString;
+    s->insert(0, 'a');
+    passed = s->length() == 1 && s->get(0) == 'a';
+    printTestResults(passed, testNum, passedCounter);
+    //#3
+    s = new MyString;
+    s->insert(0, 'b');
+    s->insert(0, 'a');
+    s->insert(2, 'c');
+    passed = s->length() == 3 && equalsMyString("abc", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#4
+    s = new MyString;
+    s->insert(0, 'b');
+    s->insert(0, 'a');
+    s->insert(2, 'c');
+    s->insert(1, 'c');
+    s->insert(2, 'd');
+    passed = s->length() == 5 && equalsMyString("acdbc", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#5
+    s = new MyString;
+    s->insert(0, 'b');
+    s->insert(0, 'a');
+    s->insert(2, 'c');
+    s->insert(1, 'c');
+    s->insert(2, 'd');
+    s->set(0, 't');
+    passed = s->length() == 5 && equalsMyString("tcdbc", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#6
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'c');
+    s->insert(1, 'c');
+    s->insert(2, 'd');
+    s->set(0, 't');
+    s->set(s->length() - 1, 't');
+    passed = s->length() == 4 && equalsMyString("tcdt", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#7
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'c');
+    s->insert(1, 'c');
+    s->insert(2, 'd');
+    s->set(0, 't');
+    s->insert(0, 'a');
+    s->set(s->length() - 1, 't');
+    s->insert(s->length(), 'k');
+    passed = s->length() == 6 && equalsMyString("atcdtk", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#8
+    s = new MyString;
+    s->insert(0, 'a');
+    s = s->substr(0, 1);
+    passed = equalsMyString("a", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#9
+    s = new MyString;
+    s->insert(0, 'a');
+    s = s->substr(0, 0);
+    passed = equalsMyString("", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#10
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'b');
+    s->insert(2, 'c');
+    s->insert(3, 'd');
+    s->insert(4, 'e');
+    s = s->substr(3, 2);
+    passed = equalsMyString("de", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#11
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'b');
+    s->insert(2, 'c');
+    s->insert(3, 'd');
+    s->insert(4, 'e');
+    s = s->substr(0, s->length());
+    passed = equalsMyString("abcde", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#12
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'b');
+    s->insert(2, 'c');
+    s->insert(3, 'd');
+    s->insert(4, 'e');
+    s = s->substr(0, s->length());
+    passed = equalsMyString("abcde", s);
+    printTestResults(passed, testNum, passedCounter);
+    //#13
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'b');
+    s->insert(2, 'c');
+    s->insert(3, 'd');
+    s->insert(4, 'e');
+    passed = s->find(initMyString("abcdef")) == -1;
+    printTestResults(passed, testNum, passedCounter);
+    //#14
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'b');
+    s->insert(2, 'c');
+    s->insert(3, 'd');
+    s->insert(4, 'e');
+    passed = s->find(initMyString("abcde")) == 0;
+    printTestResults(passed, testNum, passedCounter);
+    //#15
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'b');
+    s->insert(2, 'c');
+    s->insert(3, 'd');
+    s->insert(4, 'e');
+    passed = s->find(initMyString("de")) == 3;
+    printTestResults(passed, testNum, passedCounter);
+    //#16
+    s = new MyString;
+    s->insert(0, 'a');
+    s->insert(1, 'b');
+    s->insert(2, 'c');
+    s->insert(3, 'd');
+    s->insert(4, 'e');
+    passed = s->find(initMyString("abcc")) == -1;
+    printTestResults(passed, testNum, passedCounter);
+
+
+    cout << "###### passed " << passedCounter << " tests ######" << endl;
+}
 
 void insertIntoTree(Node * &root, int v) {
 	if (root == NULL) {
@@ -276,13 +276,12 @@ void runLongestPathTests() {
 	res = getLongestPath(root);
 	printTestResults(res == 15, testNum, passedCounter);
 
-
 	cout << "###### passed " << passedCounter << " tests ######" << endl;
 }
 
-
 int main() {
-//	runStringTests();
+	runStringTests();
 	runLongestPathTests();
-	return 0;
+
+    return 0;
 }
