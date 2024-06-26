@@ -7,9 +7,19 @@ include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Ad
 
 # Add the executable target
 add_executable(Abstractions
-        src/exams/mid-exams/2/unnamed/SumOfTwoLinkedList.cpp
-        src/exams/mid-exams/2/unnamed/SumOfTwoLinkedList.h
-        src/exams/mid-exams/2/unnamed/main.cpp)
+        src/assignments/7/trailblazer/Trailblazer.h
+        src/assignments/7/trailblazer/Trailblazer.cpp
+        src/assignments/7/trailblazer/TrailblazerConstants.h
+        src/assignments/7/trailblazer/TrailblazerCosts.cpp
+        src/assignments/7/trailblazer/TrailblazerCosts.h
+        src/assignments/7/trailblazer/TrailblazerGraphics.cpp
+        src/assignments/7/trailblazer/TrailblazerGraphics.h
+        src/assignments/7/trailblazer/TrailblazerPQueue.h
+        src/assignments/7/trailblazer/TrailblazerTypes.cpp
+        src/assignments/7/trailblazer/TrailblazerTypes.h
+        src/assignments/7/trailblazer/WorldGenerator.h
+
+        )
 
 # Link the executable target with the library target
 target_link_libraries(Abstractions ${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib/libStanfordCPPLib.a)
