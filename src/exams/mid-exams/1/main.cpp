@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "2024/1/Domino.h"
+#include "2024/1/src/Domino.h"
 #include "vector"
 
 using namespace std;

@@ -7,10 +7,10 @@ include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Ad
 
 # Add the executable target
 add_executable(Abstractions
-        src/exams/mid-exams/1/2024/2/src/transport.cpp
-        src/exams/mid-exams/1/2024/2/src/transport.h
+        src/exams/mid-exams/1/2024/2/src/vitamins.cpp
+        src/exams/mid-exams/1/2024/2/src/vitamins.h
         src/exams/mid-exams/1/2024/2/src/main.cpp
-        )
+        src/2016-practice-problems/07/fuse.cpp src/2016-practice-problems/07/fuse.h src/2016-practice-problems/12/bagpackProblem.cpp)
 
 # Link the executable target with the library target
 target_link_libraries(Abstractions ${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib/libStanfordCPPLib.a)
