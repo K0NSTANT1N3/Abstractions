@@ -7,18 +7,9 @@ include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Ad
 
 # Add the executable target
 add_executable(Abstractions
-        src/assignments/7/trailblazer/Trailblazer.h
-        src/assignments/7/trailblazer/Trailblazer.cpp
-        src/assignments/7/trailblazer/TrailblazerConstants.h
-        src/assignments/7/trailblazer/TrailblazerCosts.cpp
-        src/assignments/7/trailblazer/TrailblazerCosts.h
-        src/assignments/7/trailblazer/TrailblazerGraphics.cpp
-        src/assignments/7/trailblazer/TrailblazerGraphics.h
-        src/assignments/7/trailblazer/TrailblazerPQueue.h
-        src/assignments/7/trailblazer/TrailblazerTypes.cpp
-        src/assignments/7/trailblazer/TrailblazerTypes.h
-        src/assignments/7/trailblazer/WorldGenerator.h
-
+        src/exams/mid-exams/1/2024/2/src/transport.cpp
+        src/exams/mid-exams/1/2024/2/src/transport.h
+        src/exams/mid-exams/1/2024/2/src/main.cpp
         )
 
 # Link the executable target with the library target

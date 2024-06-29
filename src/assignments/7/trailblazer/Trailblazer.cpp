@@ -96,7 +96,6 @@ shortestPath(Loc start,
                 yellowNodes.enqueue(nextNode, distanceFromPrev);
                 colorCell(world, nextNode, YELLOW);
             }
-
         }
     }
 
