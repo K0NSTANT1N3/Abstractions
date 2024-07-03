@@ -32,7 +32,7 @@ enum Color {
 /* Type: Edge
  *
  * A type representing an edge in the grid, as encoded by its start and end node.
- * This type will be useful when implementing Kruskal's algorithm, though you may
+ * This type will be useful when implemenროცting Kruskal's algorithm, though you may
  * also find it useful when writing Dijkstra's algorithm or A* search.
  */
 struct Edge {
