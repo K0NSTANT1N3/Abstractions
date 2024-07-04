@@ -7,10 +7,9 @@ include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Ad
 
 # Add the executable target
 add_executable(Abstractions
-        src/exams/final/2018/problems/src/shortest_path.h
-        src/exams/final/2018/problems/src/shortest_path.cpp
-        src/exams/final/2018/problems/src/main.cpp
-        )
+        src/exams/final/2018/version2/session1/src/OrderedMap.cpp
+        src/exams/final/2018/version2/session1/src/OrderedMap.h
+        src/exams/final/2018/version2/session1/src/main.cpp)
 
 # Link the executable target with the library target
 target_link_libraries(Abstractions ${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib/libStanfordCPPLib.a)
