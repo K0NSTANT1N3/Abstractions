@@ -27,11 +27,11 @@ int sumOfLeftLeaves(TreeNode * root) {
     if(root == NULL || isLeaf(root)) return 0;
     leftLeavesSum(root->left, sum1);
 
-    std::cout << "ans1 = " << sum1;
-
     if(!isLeaf(root ->right)){
         leftLeavesSum(root->right, sum2);
     }
+
+    cout << "answer is "  << sum1 + sum2 << endl;
 
     return sum1 + sum2;
 }

@@ -6,9 +6,6 @@ include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
 
 # Add the executable target
 add_executable(Abstractions
-#        src/exams/final/2021/2/network/NetworkDelayTime.cpp
-#        src/exams/final/2021/2/network/NetworkDelayTime.h
-        src/exams/final/2021/2/network/main.cpp
 
         )
 # Link the executable target with the library target
