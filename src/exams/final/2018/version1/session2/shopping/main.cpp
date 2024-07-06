@@ -1,21 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <climits>
 #include "vector.h"
+#include "shoping.h"
 
 using namespace std;
 
-struct item {
-    int price;
-    int weight;
-};
-
-struct bag {
-    int price;
-    int cap;
-};
-
-int findBestComb(Vector<item> &items, Vector<bag> &bags, int money);
 
 // Function to read test data from a file
 bool readTestData(const string& fileName, Vector<item>& items, Vector<bag>& bags, int& money) {
@@ -54,17 +45,15 @@ int main() {
     int money;
     int passedCounter = 0;
 
-    string basePath = "shopping_tests/";  // Adjust this relative path as necessary
+    string basePath = "/home/konstantine/CLionProjects/Abstractions/src/exams/final/2018/version1/session2/shopping/shoping_tests/";  // Adjust this relative path as necessary
 
     for (int i = 1; i <= NUM_TESTS; ++i) {
         string fileName = basePath + "test" + to_string(i) + ".txt";
 
-        cout << "Attempting to read file: " << fileName << endl;
 
         // Print the full path to verify
         char resolvedPath[PATH_MAX];
         if (realpath(fileName.c_str(), resolvedPath) != NULL) {
-            cout << "Resolved path: " << resolvedPath << endl;
         } else {
             cerr << "Failed to resolve path for file: " << fileName << endl;
         }
