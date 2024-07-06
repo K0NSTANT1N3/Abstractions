@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <climits>
-#include "common.h"
+#include "../common.h"
 #include "sec_min_spanning_tree.h"
 #include "set.h"
 

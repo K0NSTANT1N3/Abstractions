@@ -3,17 +3,15 @@ project(Abstractions)
 
 # Include the directory containing header files
 include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
-include_directories(${CMAKE_SOURCE_DIR}/src/assignments/6/huffman-encoding) # Add this line
 
 # Add the executable target
 add_executable(Abstractions
-        src/exams/final/2018/version1/session2/src/sec_min_spanning_tree.cpp
-        src/exams/final/2018/version1/session2/src/sec_min_spanning_tree.h
-        src/exams/final/2018/version1/session2/src/main.cpp
-        src/exams/final/2018/version1/session2/src/common.h
+        src/exams/final/2018/version1/session2/shopping/shoping.cpp
+        src/exams/final/2018/version1/session2/shopping/shoping.h
+        src/exams/final/2018/version1/session2/shopping/main.cpp
+        src/exams/final/2018/version1/session2/common.h
 
         )
-
 # Link the executable target with the library target
 target_link_libraries(Abstractions ${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib/libStanfordCPPLib.a)
 

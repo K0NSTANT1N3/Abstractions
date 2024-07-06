@@ -4,7 +4,7 @@
 int getMaxWeight(Vector<item> &items, int cap1, int cap2, int money, int weight){
 	if( money < 0 || cap1 < 0 || cap2 < 0) return 0;
 	if(items.isEmpty()) return weight;
-	int temp;
+
 	item it = items[items.size() - 1];
 	items.remove(items.size() - 1);
 	int res1 = getMaxWeight(items, cap1 - it.weight, cap2, money - it.price, weight+it.weight);
