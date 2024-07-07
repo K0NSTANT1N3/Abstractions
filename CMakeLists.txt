@@ -6,6 +6,10 @@ include_directories(${CMAKE_SOURCE_DIR}/lib/StanfordCPPLib)
 
 # Add the executable target
 add_executable(Abstractions
+        src/exams/final/2018/version1/session1/src/cache_map.h
+        src/exams/final/2018/version1/session1/src/cache_map.cpp
+        src/exams/final/2018/version1/session1/src/main.cpp
+
 
         )
 # Link the executable target with the library target

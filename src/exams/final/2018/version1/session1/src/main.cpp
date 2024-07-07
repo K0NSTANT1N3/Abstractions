@@ -123,8 +123,9 @@ void runCacheMapTests() {
 	map->put(2, 102);
 	map->put(1, 101);
 	map->put(3, 103);
-	passed = map->size() == 3 && map->get(1) == 101	&& 
-			map->get(2) == 102 && map->get(3) == 103; 
+
+	passed = map->size() == 3 && map->get(1) == 101 &&
+            map->get(2) == 102 && map->get(3) == 103;
 	printTestResults(passed, testNum, passedCounter);
 
 	// #2
@@ -132,10 +133,11 @@ void runCacheMapTests() {
 	map->put(2, 102);
 	map->put(1, 101);
 	map->put(3, 103);
-	map->put(3, 203);
-	map->put(4, 104);
-	passed = map->size() == 4 && map->get(1) == 101	 && 
-			map->get(2) == 102 && map->get(3) == 203 && map->get(4) == 104; 
+    map->put(3, 203);
+    map->put(4, 104);
+
+	passed = map->size() == 4 && map->get(1) == 101 &&
+            map->get(2) == 102 && map->get(3) == 203 && map->get(4) == 104;
 	printTestResults(passed, testNum, passedCounter);
 
 	// #3
